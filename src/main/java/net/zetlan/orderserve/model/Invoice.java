@@ -1,5 +1,6 @@
 package net.zetlan.orderserve.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.dropwizard.jackson.JsonSnakeCase;
 
@@ -50,6 +51,7 @@ public class Invoice implements Serializable {
         this.poNumber = poNumber;
     }
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @JsonProperty
     public Date getDueDate() {
         return dueDate;
@@ -68,6 +70,7 @@ public class Invoice implements Serializable {
         this.amountCents = amountCents;
     }
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy'T'hh:mm:ssZ")
     @JsonProperty
     public Date getCreatedAt() {
         return createdAt;
