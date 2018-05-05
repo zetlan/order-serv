@@ -3,24 +3,42 @@ package net.zetlan.orderserve.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.dropwizard.jackson.JsonSnakeCase;
+import org.hibernate.annotations.CreationTimestamp;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
 
+@Entity
+@Table(name = "invoices")
 @JsonSnakeCase
 public class Invoice implements Serializable {
 
+    @Id
+    @Column(name = "id", columnDefinition = "serial")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     private long id;
 
+    @Column(name = "invoice_number", length = 64)
+    @NotNull
     private String invoiceNumber;
 
+    @Column(name = "po_number", length = 64)
+    @NotNull
     private String poNumber;
 
+    @Column(name = "due_date")
+    @NotNull
     private Date dueDate;
 
+    @Column(name = "amount_cents")
+    @NotNull
     private long amountCents;
 
+    @CreationTimestamp
     private Date createdAt;
 
 
