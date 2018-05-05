@@ -8,7 +8,6 @@ import net.zetlan.orderserve.model.Invoice;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -46,6 +45,8 @@ public class InvoiceAPI {
             response = Invoice.class
     )
     public Invoice getInvoice(@ApiParam("New invoice") Invoice invoice) {
-        throw new WebApplicationException("Not yet implemented", Response.Status.BAD_REQUEST);
+        invoice.setId(20);
+        invoice.setCreatedAt(new Date());
+        return invoice;
     }
 }

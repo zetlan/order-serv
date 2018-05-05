@@ -1,5 +1,7 @@
 package net.zetlan.orderserve;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
@@ -9,6 +11,11 @@ import net.zetlan.orderserve.api.InvoiceAPI;
 
 public class OrderServeApplication extends Application<OrderServeConfig> {
 
+    private final Injector injector;
+
+    public OrderServeApplication() {
+        injector = Guice.createInjector(new OrderServeModule());
+    }
 
     public static void main(String[] args) throws Exception {
         new OrderServeApplication().run(args);
@@ -32,8 +39,6 @@ public class OrderServeApplication extends Application<OrderServeConfig> {
 
     @Override
     public void run(OrderServeConfig config, Environment environment) throws Exception {
-        final InvoiceAPI invoiceAPI = new InvoiceAPI();
-        environment.jersey().register(invoiceAPI);
-
+        environment.jersey().register(injector.getInstance(InvoiceAPI.class));
     }
 }
