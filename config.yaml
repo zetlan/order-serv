@@ -1,0 +1,6 @@
+swagger:
+  resourcePackage: net.zetlan.orderserve
+
+server:
+  type: simple
+  applicationContextPath: /v1
