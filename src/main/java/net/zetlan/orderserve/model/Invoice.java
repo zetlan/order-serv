@@ -12,8 +12,27 @@ import java.util.Date;
 
 
 @Entity
-@Table(name = "invoices")
+@Table(
+        name = "invoices",
+        indexes = {
+                @Index(columnList = "invoice_number"),
+                @Index(columnList = "po_number")
+        }
+)
 @JsonSnakeCase
+@NamedQueries({
+        @NamedQuery(
+                name = "net.zetlan.orderserve.model.Invoice.findInvoicesByKey",
+                query = "select i from Invoice i "
+                    + "where lower(i.invoiceNumber) like lower(:key) or lower(i.poNumber) like lower(:key) "
+                    + "order by i.createdAt asc"
+                ),
+        @NamedQuery(
+                name = "net.zetlan.orderserve.model.Invoice.findAll",
+                query = "select i from Invoice i order by i.createdAt asc"
+        )
+        }
+)
 public class Invoice implements Serializable {
 
     @Id
@@ -38,6 +57,7 @@ public class Invoice implements Serializable {
     @NotNull
     private long amountCents;
 
+    @Column(name = "created_at")
     @CreationTimestamp
     private Date createdAt;
 

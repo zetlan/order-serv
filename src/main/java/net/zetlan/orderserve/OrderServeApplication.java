@@ -24,7 +24,7 @@ public class OrderServeApplication extends Application<OrderServeConfig> {
     };
 
     public OrderServeApplication() {
-        injector = Guice.createInjector(new OrderServeModule());
+        injector = Guice.createInjector(new OrderServeModule(hibernate));
     }
 
     public static void main(String[] args) throws Exception {
