@@ -18,18 +18,21 @@ public class InvoiceDAO extends AbstractDAO<Invoice> {
 
     public List<Invoice> findInvoices(String key, Integer limit, Integer offset) {
         Query query;
+
         if (StringUtils.isBlank(key)) {
             query = namedQuery("net.zetlan.orderserve.model.Invoice.findAll");
         } else {
             query = namedQuery("net.zetlan.orderserve.model.Invoice.findInvoicesByKey")
                     .setParameter("key", "%" + key + "%");
         }
+
         if (limit != null && limit > 0) {
             query.setMaxResults(limit);
         }
         if (offset != null && offset > 0) {
             query.setFirstResult(offset);
         }
+
         return query.getResultList();
     }
 

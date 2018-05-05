@@ -1,7 +1,6 @@
 package net.zetlan.orderserve;
 
 import com.google.inject.Guice;
-import com.google.inject.Inject;
 import com.google.inject.Injector;
 import io.dropwizard.Application;
 import io.dropwizard.db.DataSourceFactory;

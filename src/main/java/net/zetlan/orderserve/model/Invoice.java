@@ -15,18 +15,22 @@ import java.util.Date;
 @Table(
         name = "invoices",
         indexes = {
-                @Index(columnList = "invoice_number"),
-                @Index(columnList = "po_number")
+                @Index(columnList = "invoice_number", name = "idx_invoice_number"),
+                @Index(columnList = "po_number", name = "idx_po_number")
         }
 )
 @JsonSnakeCase
 @NamedQueries({
+
+        // To be used when searching by a key (invoice number or PO number):
         @NamedQuery(
                 name = "net.zetlan.orderserve.model.Invoice.findInvoicesByKey",
                 query = "select i from Invoice i "
                     + "where lower(i.invoiceNumber) like lower(:key) or lower(i.poNumber) like lower(:key) "
                     + "order by i.createdAt asc"
                 ),
+
+        // To be used if you just want to get all invoices:
         @NamedQuery(
                 name = "net.zetlan.orderserve.model.Invoice.findAll",
                 query = "select i from Invoice i order by i.createdAt asc"
